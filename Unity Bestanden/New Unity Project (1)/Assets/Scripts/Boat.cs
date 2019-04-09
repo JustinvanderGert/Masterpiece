@@ -4,20 +4,25 @@ using UnityEngine;
 
 public class Boat : MonoBehaviour
 {
+    public List<GameObject> Docks;
     Rigidbody Rb;
-    bool Driving = true;
+
+    public bool Driving = false;
+
+    public Transform PlayerDrivingPos;
 
     public float RotSpeed;
     public float MovSpeed;
     public float MaxSpeed;
+    public float MinDistanceToExit;
 
 
     void Start()
     {
         Rb = GetComponent<Rigidbody>();
     }
-    
-    void Update()
+
+    void FixedUpdate()
     {
         if (Driving)
         {
@@ -30,18 +35,39 @@ public class Boat : MonoBehaviour
                 transform.Rotate(0, RotSpeed * Time.deltaTime, 0, Space.Self);
             }
 
-            if (Input.GetKey(KeyCode.W) && Rb.velocity.x < MaxSpeed)
+            if (Input.GetKey(KeyCode.W))
             {
-                Rb.AddForce(transform.forward * MovSpeed * Time.deltaTime);
+                Rb.velocity = transform.forward * (Input.GetAxis("Vertical") * MovSpeed * Time.deltaTime);
             }
-            else if (Input.GetKey(KeyCode.S) && Rb.velocity.x > 0)
+            else if (Input.GetKey(KeyCode.S))
             {
-                Rb.AddForce(-transform.forward * MovSpeed * Time.deltaTime);
-                if(Rb.velocity.x < 0)
-                {
-                    Rb.velocity = new Vector3(0, 0, 0);
-                }
+                Rb.drag = 1;
+                Rb.angularDrag = 1;
+            }
+            else
+            {
+                Rb.drag = 0.25f;
+                Rb.angularDrag = 0.25f;
             }
         }
+    }
+
+    public GameObject FindClosest(List<GameObject> ListToCheck)
+    {
+        GameObject Closest = null;
+        float MinDistance = Mathf.Infinity;
+
+        foreach (GameObject ObjectToCheck in ListToCheck)
+        {
+            float Distance = Vector3.Distance(transform.position, ObjectToCheck.transform.position);
+            if (MinDistance >= Distance)
+            {
+                Closest = ObjectToCheck;
+                MinDistance = Distance;
+                continue;
+            }
+        }
+
+        return Closest;
     }
 }
