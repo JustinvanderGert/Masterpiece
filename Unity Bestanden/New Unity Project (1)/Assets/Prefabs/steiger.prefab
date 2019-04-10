@@ -1,5 +1,35 @@
 %YAML 1.1
 %TAG !u! tag:unity3d.com,2011:
+--- !u!1 &1423368270973840336
+GameObject:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  serializedVersion: 6
+  m_Component:
+  - component: {fileID: 7169385147480344794}
+  m_Layer: 0
+  m_Name: BoatSpawnPos
+  m_TagString: Untagged
+  m_Icon: {fileID: 0}
+  m_NavMeshLayer: 0
+  m_StaticEditorFlags: 0
+  m_IsActive: 1
+--- !u!4 &7169385147480344794
+Transform:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1423368270973840336}
+  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
+  m_LocalPosition: {x: -4.1, y: 4.92, z: -0.56}
+  m_LocalScale: {x: 1, y: 1, z: 1}
+  m_Children: []
+  m_Father: {fileID: 1776415706693680204}
+  m_RootOrder: 5
+  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
 --- !u!1 &1776415706693312512
 GameObject:
   m_ObjectHideFlags: 0
@@ -4679,7 +4709,7 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1776415706693312940}
-  m_LocalRotation: {x: -0, y: 0.6634053, z: -0, w: 0.7482603}
+  m_LocalRotation: {x: 0, y: 0.66340405, z: 0, w: 0.7482614}
   m_LocalPosition: {x: 303.23, y: 7.59, z: 251.08}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children:
@@ -4688,6 +4718,7 @@ Transform:
   - {fileID: 1776415706693680222}
   - {fileID: 1776415706693680220}
   - {fileID: 1277395255933234192}
+  - {fileID: 7169385147480344794}
   m_Father: {fileID: 0}
   m_RootOrder: 0
   m_LocalEulerAnglesHint: {x: 0, y: 83.12, z: 0}
@@ -4703,7 +4734,8 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 5e67e757a248cf948bc1237aec74a0a9, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  PlayerEnterPos: {fileID: 1277395255933234192}
+  PlayerEnterPos: {fileID: 8919732961027864868}
+  BoatSpawnPos: {fileID: 1423368270973840336}
 --- !u!1 &1776415706693312942
 GameObject:
   m_ObjectHideFlags: 0
@@ -5555,10 +5587,10 @@ Transform:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 8919732961027864868}
-  m_LocalRotation: {x: 0, y: 0, z: 0, w: 1}
-  m_LocalPosition: {x: -0, y: 8.02, z: 1.14}
+  m_LocalRotation: {x: 0, y: 1, z: 0, w: 0}
+  m_LocalPosition: {x: -0, y: 7.27, z: 1.14}
   m_LocalScale: {x: 1, y: 1, z: 1}
   m_Children: []
   m_Father: {fileID: 1776415706693680204}
   m_RootOrder: 4
-  m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
+  m_LocalEulerAnglesHint: {x: 0, y: 180, z: 0}

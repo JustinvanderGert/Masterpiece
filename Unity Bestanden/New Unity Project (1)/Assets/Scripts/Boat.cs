@@ -19,6 +19,7 @@ public class Boat : MonoBehaviour
 
     void Start()
     {
+        //Sets all private variables.
         Rb = GetComponent<Rigidbody>();
     }
 
@@ -26,6 +27,8 @@ public class Boat : MonoBehaviour
     {
         if (Driving)
         {
+            Rb.isKinematic = false;
+            //Allows steering.
             if (Input.GetKey(KeyCode.A))
             {
                 transform.Rotate(0, -RotSpeed * Time.deltaTime, 0, Space.Self);
@@ -50,16 +53,19 @@ public class Boat : MonoBehaviour
                 Rb.angularDrag = 0.25f;
             }
         }
+        else { Rb.isKinematic = true; }
     }
 
     public GameObject FindClosest(List<GameObject> ListToCheck)
     {
+        //Finds the closest Dock.
         GameObject Closest = null;
         float MinDistance = Mathf.Infinity;
 
         foreach (GameObject ObjectToCheck in ListToCheck)
         {
-            float Distance = Vector3.Distance(transform.position, ObjectToCheck.transform.position);
+            Dock DockScript = ObjectToCheck.GetComponent<Dock>();
+            float Distance = Vector3.Distance(transform.position, DockScript.PlayerEnterPos.transform.position);
             if (MinDistance >= Distance)
             {
                 Closest = ObjectToCheck;
