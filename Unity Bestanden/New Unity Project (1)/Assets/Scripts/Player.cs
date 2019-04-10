@@ -11,6 +11,7 @@ public class Player : MonoBehaviour
     Boat boatScript;
     GameObject BoatObject;
 
+    public GameObject ClosestDock;
     public float RangeTillBoat;
 
     void Start()
@@ -49,7 +50,7 @@ public class Player : MonoBehaviour
                 else
                 {
                     //Resets everything to get off the boat.
-                    GameObject ClosestDock = boatScript.FindClosest(boatScript.Docks);
+                    ClosestDock = boatScript.FindClosest(boatScript.Docks);
                     Dock ClosestDockScript = ClosestDock.GetComponent<Dock>();
 
                     BoatObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
@@ -64,6 +65,16 @@ public class Player : MonoBehaviour
                     movementController.enabled = true;
                 }
             }
+        }
+    }
+
+    private void OnCollisionEnter(Collision Other)
+    {
+        if(Other.gameObject.tag == "Respawn")
+        {
+            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            transform.position = ClosestDock.GetComponent<Dock>().PlayerEnterPos.transform.position;
+            transform.rotation = ClosestDock.GetComponent<Dock>().PlayerEnterPos.transform.rotation;
         }
     }
 }
