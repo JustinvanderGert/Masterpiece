@@ -17,7 +17,7 @@ namespace UnityStandardAssets.Utility
         private float m_CyclePositionX;
         private float m_CyclePositionY;
         private float m_BobBaseInterval;
-        private Vector3 m_OriginalCameraPosition;
+        private UnityEngine.Vector3 m_OriginalCameraPosition;
         private float m_Time;
 
 
@@ -48,7 +48,7 @@ namespace UnityStandardAssets.Utility
                 m_CyclePositionY = m_CyclePositionY - m_Time;
             }
 
-            return new Vector3(xPos, yPos, 0f);
+            return new UnityEngine.Vector3(xPos, yPos, 0f);
         }
     }
 }

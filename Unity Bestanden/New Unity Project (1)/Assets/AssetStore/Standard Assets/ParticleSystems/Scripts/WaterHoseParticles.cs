@@ -36,7 +36,7 @@ namespace UnityStandardAssets.Effects
                 var attachedRigidbody = col.GetComponent<Rigidbody>();
                 if (attachedRigidbody != null)
                 {
-                    Vector3 vel = m_CollisionEvents[i].velocity;
+                    UnityEngine.Vector3 vel = m_CollisionEvents[i].velocity;
                     attachedRigidbody.AddForce(vel*force, ForceMode.Impulse);
                 }
 

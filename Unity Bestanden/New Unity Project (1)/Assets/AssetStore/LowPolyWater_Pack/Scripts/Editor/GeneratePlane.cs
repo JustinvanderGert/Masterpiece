@@ -93,7 +93,7 @@ namespace LowPolyWater
                 int numTriangles = widthSegments * heightSegments * 6;
                 int numVertices = hCount2 * vCount2;
 
-                Vector3[] vertices = new Vector3[numVertices];
+                UnityEngine.Vector3[] vertices = new UnityEngine.Vector3[numVertices];
                 Vector2[] uvs = new Vector2[numVertices];
                 int[] triangles = new int[numTriangles];
                 Vector4[] tangents = new Vector4[numVertices];
@@ -111,7 +111,7 @@ namespace LowPolyWater
                 {
                     for (float x = 0.0f; x < hCount2; x++)
                     {
-                        vertices[index] = new Vector3(x * scaleX - planeWidth / 2f - anchorOffset.x, 0.0f, y * scaleY - planeHeight / 2f - anchorOffset.y);
+                        vertices[index] = new UnityEngine.Vector3(x * scaleX - planeWidth / 2f - anchorOffset.x, 0.0f, y * scaleY - planeHeight / 2f - anchorOffset.y);
 
                         tangents[index] = tangent;
                         uvs[index++] = new Vector2(x * uvFactorX, y * uvFactorY);

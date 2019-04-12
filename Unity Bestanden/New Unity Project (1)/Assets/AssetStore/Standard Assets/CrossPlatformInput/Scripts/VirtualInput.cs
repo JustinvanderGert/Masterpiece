@@ -101,19 +101,19 @@ namespace UnityStandardAssets.CrossPlatformInput
 
         public void SetVirtualMousePositionX(float f)
         {
-            virtualMousePosition = new Vector3(f, virtualMousePosition.y, virtualMousePosition.z);
+            virtualMousePosition = new UnityEngine.Vector3(f, (float)virtualMousePosition.y, (float)virtualMousePosition.z);
         }
 
 
         public void SetVirtualMousePositionY(float f)
         {
-            virtualMousePosition = new Vector3(virtualMousePosition.x, f, virtualMousePosition.z);
+            virtualMousePosition = new UnityEngine.Vector3((float)virtualMousePosition.x, f, (float)virtualMousePosition.z);
         }
 
 
         public void SetVirtualMousePositionZ(float f)
         {
-            virtualMousePosition = new Vector3(virtualMousePosition.x, virtualMousePosition.y, f);
+            virtualMousePosition = new UnityEngine.Vector3((float)virtualMousePosition.x, (float)virtualMousePosition.y, f);
         }
 
 

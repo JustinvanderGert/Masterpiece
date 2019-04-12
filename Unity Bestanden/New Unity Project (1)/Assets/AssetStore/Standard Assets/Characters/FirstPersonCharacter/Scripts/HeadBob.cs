@@ -15,7 +15,7 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
        // private CameraRefocus m_CameraRefocus;
         private bool m_PreviouslyGrounded;
-        private Vector3 m_OriginalCameraPosition;
+        private UnityEngine.Vector3 m_OriginalCameraPosition;
 
 
         private void Start()
@@ -28,8 +28,8 @@ namespace UnityStandardAssets.Characters.FirstPerson
 
         private void Update()
         {
-          //  m_CameraRefocus.GetFocusPoint();
-            Vector3 newCameraPosition;
+            //  m_CameraRefocus.GetFocusPoint();
+            UnityEngine.Vector3 newCameraPosition;
             if (rigidbodyFirstPersonController.Velocity.magnitude > 0 && rigidbodyFirstPersonController.Grounded)
             {
                 Camera.transform.localPosition = motionBob.DoHeadBob(rigidbodyFirstPersonController.Velocity.magnitude*(rigidbodyFirstPersonController.Running ? RunningStrideLengthen : 1f));

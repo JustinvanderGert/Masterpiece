@@ -50,7 +50,7 @@ namespace UnityStandardAssets.Utility
             }
 
             m_SpringJoint.transform.position = hit.point;
-            m_SpringJoint.anchor = Vector3.zero;
+            m_SpringJoint.anchor = UnityEngine.Vector3.zero;
 
             m_SpringJoint.spring = k_Spring;
             m_SpringJoint.damper = k_Damper;

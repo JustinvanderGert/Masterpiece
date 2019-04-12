@@ -41,8 +41,8 @@ namespace UnityStandardAssets.SceneUtils
         private List<Transform> m_CurrentParticleList = new List<Transform>();
         private Transform m_Instance;
         private static int s_SelectedIndex = 0;
-        private Vector3 m_CamOffsetVelocity = Vector3.zero;
-        private Vector3 m_LastPos;
+        private UnityEngine.Vector3 m_CamOffsetVelocity = UnityEngine.Vector3.zero;
+        private UnityEngine.Vector3 m_LastPos;
         private static DemoParticleSystem s_Selected;
 
 
@@ -93,7 +93,7 @@ namespace UnityStandardAssets.SceneUtils
 
 
 
-            sceneCamera.localPosition = Vector3.SmoothDamp(sceneCamera.localPosition, Vector3.forward*-s_Selected.camOffset,
+            sceneCamera.localPosition = UnityEngine.Vector3.SmoothDamp(sceneCamera.localPosition, UnityEngine.Vector3.forward*-s_Selected.camOffset,
                                                        ref m_CamOffsetVelocity, 1);
 
             if (s_Selected.mode == Mode.Activate)

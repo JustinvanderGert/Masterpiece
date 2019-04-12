@@ -46,7 +46,7 @@ namespace UnityStandardAssets.Utility
 
         private float progressDistance; // The progress round the route, used in smooth mode.
         private int progressNum; // the current waypoint number, used in point-to-point mode.
-        private Vector3 lastPosition; // Used to calculate current speed (since we may not have a rigidbody component)
+        private UnityEngine.Vector3 lastPosition; // Used to calculate current speed (since we may not have a rigidbody component)
         private float speed; // current speed of this object (calculated from delta since last frame)
 
         // setup script properties
@@ -103,8 +103,8 @@ namespace UnityStandardAssets.Utility
 
                 // get our current progress along the route
                 progressPoint = circuit.GetRoutePoint(progressDistance);
-                Vector3 progressDelta = progressPoint.position - transform.position;
-                if (Vector3.Dot(progressDelta, progressPoint.direction) < 0)
+                UnityEngine.Vector3 progressDelta = progressPoint.position - transform.position;
+                if (UnityEngine.Vector3.Dot(progressDelta, progressPoint.direction) < 0)
                 {
                     progressDistance += progressDelta.magnitude*0.5f;
                 }
@@ -115,7 +115,7 @@ namespace UnityStandardAssets.Utility
             {
                 // point to point mode. Just increase the waypoint if we're close enough:
 
-                Vector3 targetDelta = target.position - transform.position;
+                UnityEngine.Vector3 targetDelta = target.position - transform.position;
                 if (targetDelta.magnitude < pointToPointThreshold)
                 {
                     progressNum = (progressNum + 1)%circuit.Waypoints.Length;
@@ -127,8 +127,8 @@ namespace UnityStandardAssets.Utility
 
                 // get our current progress along the route
                 progressPoint = circuit.GetRoutePoint(progressDistance);
-                Vector3 progressDelta = progressPoint.position - transform.position;
-                if (Vector3.Dot(progressDelta, progressPoint.direction) < 0)
+                UnityEngine.Vector3 progressDelta = progressPoint.position - transform.position;
+                if (UnityEngine.Vector3.Dot(progressDelta, progressPoint.direction) < 0)
                 {
                     progressDistance += progressDelta.magnitude;
                 }

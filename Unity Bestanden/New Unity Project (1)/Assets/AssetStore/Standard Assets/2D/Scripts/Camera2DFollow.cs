@@ -12,9 +12,9 @@ namespace UnityStandardAssets._2D
         public float lookAheadMoveThreshold = 0.1f;
 
         private float m_OffsetZ;
-        private Vector3 m_LastTargetPosition;
-        private Vector3 m_CurrentVelocity;
-        private Vector3 m_LookAheadPos;
+        private UnityEngine.Vector3 m_LastTargetPosition;
+        private UnityEngine.Vector3 m_CurrentVelocity;
+        private UnityEngine.Vector3 m_LookAheadPos;
 
         // Use this for initialization
         private void Start()
@@ -35,15 +35,15 @@ namespace UnityStandardAssets._2D
 
             if (updateLookAheadTarget)
             {
-                m_LookAheadPos = lookAheadFactor*Vector3.right*Mathf.Sign(xMoveDelta);
+                m_LookAheadPos = lookAheadFactor * UnityEngine.Vector3.right* Mathf.Sign(xMoveDelta);
             }
             else
             {
-                m_LookAheadPos = Vector3.MoveTowards(m_LookAheadPos, Vector3.zero, Time.deltaTime*lookAheadReturnSpeed);
+                m_LookAheadPos = UnityEngine.Vector3.MoveTowards(m_LookAheadPos, UnityEngine.Vector3.zero, Time.deltaTime * lookAheadReturnSpeed);
             }
 
-            Vector3 aheadTargetPos = target.position + m_LookAheadPos + Vector3.forward*m_OffsetZ;
-            Vector3 newPos = Vector3.SmoothDamp(transform.position, aheadTargetPos, ref m_CurrentVelocity, damping);
+            UnityEngine.Vector3 aheadTargetPos = target.position + m_LookAheadPos + UnityEngine.Vector3.forward* m_OffsetZ;
+            UnityEngine.Vector3 newPos = UnityEngine.Vector3.SmoothDamp(transform.position, aheadTargetPos, ref m_CurrentVelocity, damping);
 
             transform.position = newPos;
 

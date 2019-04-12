@@ -38,7 +38,7 @@ namespace UnityStandardAssets.Vehicles.Car
         private void RightCar()
         {
             // set the correct orientation for the car, and lift it off the ground a little
-            transform.position += Vector3.up;
+            transform.position += UnityEngine.Vector3.up;
             transform.rotation = Quaternion.LookRotation(transform.forward);
         }
     }

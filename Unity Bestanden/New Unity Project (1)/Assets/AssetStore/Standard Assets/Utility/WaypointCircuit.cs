@@ -13,7 +13,7 @@ namespace UnityStandardAssets.Utility
         public WaypointList waypointList = new WaypointList();
         [SerializeField] private bool smoothRoute = true;
         private int numPoints;
-        private Vector3[] points;
+        private UnityEngine.Vector3[] points;
         private float[] distances;
 
         public float editorVisualisationSubsteps = 100;
@@ -31,10 +31,10 @@ namespace UnityStandardAssets.Utility
         private int p3n;
 
         private float i;
-        private Vector3 P0;
-        private Vector3 P1;
-        private Vector3 P2;
-        private Vector3 P3;
+        private UnityEngine.Vector3 P0;
+        private UnityEngine.Vector3 P1;
+        private UnityEngine.Vector3 P2;
+        private UnityEngine.Vector3 P3;
 
         // Use this for initialization
         private void Awake()
@@ -50,9 +50,9 @@ namespace UnityStandardAssets.Utility
         public RoutePoint GetRoutePoint(float dist)
         {
             // position and direction
-            Vector3 p1 = GetRoutePosition(dist);
-            Vector3 p2 = GetRoutePosition(dist + 0.1f);
-            Vector3 delta = p2 - p1;
+            UnityEngine.Vector3 p1 = GetRoutePosition(dist);
+            UnityEngine.Vector3 p2 = GetRoutePosition(dist + 0.1f);
+            UnityEngine.Vector3 delta = p2 - p1;
             return new RoutePoint(p1, delta.normalized);
         }
 
@@ -111,12 +111,12 @@ namespace UnityStandardAssets.Utility
                 p1n = ((point - 1) + numPoints)%numPoints;
                 p2n = point;
 
-                return Vector3.Lerp(points[p1n], points[p2n], i);
+                return UnityEngine.Vector3.Lerp(points[p1n], points[p2n], i);
             }
         }
 
 
-        private Vector3 CatmullRom(Vector3 p0, Vector3 p1, Vector3 p2, Vector3 p3, float i)
+        private Vector3 CatmullRom(UnityEngine.Vector3 p0, UnityEngine.Vector3 p1, UnityEngine.Vector3 p2, UnityEngine.Vector3 p3, float i)
         {
             // comments are no use here... it's the catmull-rom equation.
             // Un-magic this, lord vector!
@@ -130,7 +130,7 @@ namespace UnityStandardAssets.Utility
         {
             // transfer the position of each point and distances between points to arrays for
             // speed of lookup at runtime
-            points = new Vector3[Waypoints.Length + 1];
+            points = new UnityEngine.Vector3[Waypoints.Length + 1];
             distances = new float[Waypoints.Length + 1];
 
             float accumulateDistance = 0;
@@ -140,8 +140,8 @@ namespace UnityStandardAssets.Utility
                 var t2 = Waypoints[(i + 1)%Waypoints.Length];
                 if (t1 != null && t2 != null)
                 {
-                    Vector3 p1 = t1.position;
-                    Vector3 p2 = t2.position;
+                    UnityEngine.Vector3 p1 = t1.position;
+                    UnityEngine.Vector3 p2 = t2.position;
                     points[i] = Waypoints[i%Waypoints.Length].position;
                     distances[i] = accumulateDistance;
                     accumulateDistance += (p1 - p2).magnitude;
@@ -173,12 +173,12 @@ namespace UnityStandardAssets.Utility
                 Length = distances[distances.Length - 1];
 
                 Gizmos.color = selected ? Color.yellow : new Color(1, 1, 0, 0.5f);
-                Vector3 prev = Waypoints[0].position;
+                UnityEngine.Vector3 prev = Waypoints[0].position;
                 if (smoothRoute)
                 {
                     for (float dist = 0; dist < Length; dist += Length/editorVisualisationSubsteps)
                     {
-                        Vector3 next = GetRoutePosition(dist + 1);
+                        UnityEngine.Vector3 next = GetRoutePosition(dist + 1);
                         Gizmos.DrawLine(prev, next);
                         prev = next;
                     }
@@ -188,7 +188,7 @@ namespace UnityStandardAssets.Utility
                 {
                     for (int n = 0; n < Waypoints.Length; ++n)
                     {
-                        Vector3 next = Waypoints[(n + 1)%Waypoints.Length].position;
+                        UnityEngine.Vector3 next = Waypoints[(n + 1)% Waypoints.Length].position;
                         Gizmos.DrawLine(prev, next);
                         prev = next;
                     }
@@ -206,11 +206,11 @@ namespace UnityStandardAssets.Utility
 
         public struct RoutePoint
         {
-            public Vector3 position;
-            public Vector3 direction;
+            public UnityEngine.Vector3 position;
+            public UnityEngine.Vector3 direction;
 
 
-            public RoutePoint(Vector3 position, Vector3 direction)
+            public RoutePoint(UnityEngine.Vector3 position, UnityEngine.Vector3 direction)
             {
                 this.position = position;
                 this.direction = direction;

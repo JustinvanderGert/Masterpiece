@@ -68,8 +68,8 @@ namespace UnityStandardAssets.Water
             CreateWaterObjects(cam, out reflectionCamera, out refractionCamera);
 
             // find out the reflection plane: position and normal in world space
-            Vector3 pos = transform.position;
-            Vector3 normal = transform.up;
+            UnityEngine.Vector3 pos = transform.position;
+            UnityEngine.Vector3 normal = transform.up;
 
             // Optionally disable pixel lights for reflection/refraction
             int oldPixelLightCount = QualitySettings.pixelLightCount;
@@ -85,13 +85,13 @@ namespace UnityStandardAssets.Water
             if (mode >= WaterMode.Reflective)
             {
                 // Reflect camera around reflection plane
-                float d = -Vector3.Dot(normal, pos) - clipPlaneOffset;
+                float d = -UnityEngine.Vector3.Dot(normal, pos) - clipPlaneOffset;
                 Vector4 reflectionPlane = new Vector4(normal.x, normal.y, normal.z, d);
 
                 Matrix4x4 reflection = Matrix4x4.zero;
                 CalculateReflectionMatrix(ref reflection, reflectionPlane);
-                Vector3 oldpos = cam.transform.position;
-                Vector3 newpos = reflection.MultiplyPoint(oldpos);
+                UnityEngine.Vector3 oldpos = cam.transform.position;
+                UnityEngine.Vector3 newpos = reflection.MultiplyPoint(oldpos);
                 reflectionCamera.worldToCameraMatrix = cam.worldToCameraMatrix * reflection;
 
                 // Setup oblique projection matrix so that near plane is our reflection
@@ -107,8 +107,8 @@ namespace UnityStandardAssets.Water
                 bool oldCulling = GL.invertCulling;
                 GL.invertCulling = !oldCulling;
                 reflectionCamera.transform.position = newpos;
-                Vector3 euler = cam.transform.eulerAngles;
-                reflectionCamera.transform.eulerAngles = new Vector3(-euler.x, euler.y, euler.z);
+                UnityEngine.Vector3 euler = cam.transform.eulerAngles;
+                reflectionCamera.transform.eulerAngles = new UnityEngine.Vector3(-euler.x, euler.y, euler.z);
                 reflectionCamera.Render();
                 reflectionCamera.transform.position = oldpos;
                 GL.invertCulling = oldCulling;
@@ -367,13 +367,13 @@ namespace UnityStandardAssets.Water
         }
 
         // Given position/normal of the plane, calculates plane in camera space.
-        Vector4 CameraSpacePlane(Camera cam, Vector3 pos, Vector3 normal, float sideSign)
+        Vector4 CameraSpacePlane(Camera cam, UnityEngine.Vector3 pos, UnityEngine.Vector3 normal, float sideSign)
         {
-            Vector3 offsetPos = pos + normal * clipPlaneOffset;
+            UnityEngine.Vector3 offsetPos = pos + normal * clipPlaneOffset;
             Matrix4x4 m = cam.worldToCameraMatrix;
-            Vector3 cpos = m.MultiplyPoint(offsetPos);
-            Vector3 cnormal = m.MultiplyVector(normal).normalized * sideSign;
-            return new Vector4(cnormal.x, cnormal.y, cnormal.z, -Vector3.Dot(cpos, cnormal));
+            UnityEngine.Vector3 cpos = m.MultiplyPoint(offsetPos);
+            UnityEngine.Vector3 cnormal = m.MultiplyVector(normal).normalized * sideSign;
+            return new Vector4(cnormal.x, cnormal.y, cnormal.z, -UnityEngine.Vector3.Dot(cpos, cnormal));
         }
 
         // Calculates reflection matrix around the given plane

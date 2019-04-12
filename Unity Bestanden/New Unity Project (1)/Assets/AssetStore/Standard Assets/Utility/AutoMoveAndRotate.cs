@@ -34,7 +34,7 @@ namespace UnityStandardAssets.Utility
         [Serializable]
         public class Vector3andSpace
         {
-            public Vector3 value;
+            public UnityEngine.Vector3 value;
             public Space space = Space.Self;
         }
     }

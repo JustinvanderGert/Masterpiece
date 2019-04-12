@@ -28,14 +28,14 @@ namespace UnityStandardAssets.Effects
             {
                 if (m_Cols[n].attachedRigidbody != null)
                 {
-                    Vector3 localPos = transform.InverseTransformPoint(m_Cols[n].transform.position);
-                    localPos = Vector3.MoveTowards(localPos, new Vector3(0, 0, localPos.z), effectWidth*0.5f);
+                    UnityEngine.Vector3 localPos = transform.InverseTransformPoint(m_Cols[n].transform.position);
+                    localPos = UnityEngine.Vector3.MoveTowards(localPos, new UnityEngine.Vector3(0, 0, localPos.z), effectWidth * 0.5f);
                     float angle = Mathf.Abs(Mathf.Atan2(localPos.x, localPos.z)*Mathf.Rad2Deg);
                     float falloff = Mathf.InverseLerp(effectDistance, 0, localPos.magnitude);
                     falloff *= Mathf.InverseLerp(effectAngle, 0, angle);
-                    Vector3 delta = m_Cols[n].transform.position - transform.position;
-                    m_Cols[n].attachedRigidbody.AddForceAtPosition(delta.normalized*force*falloff,
-                                                                 Vector3.Lerp(m_Cols[n].transform.position,
+                    UnityEngine.Vector3 delta = m_Cols[n].transform.position - transform.position;
+                    m_Cols[n].attachedRigidbody.AddForceAtPosition(delta.normalized * force * falloff,
+                                                                 UnityEngine.Vector3.Lerp(m_Cols[n].transform.position,
                                                                               transform.TransformPoint(0, 0, localPos.z),
                                                                               0.1f));
                 }
@@ -50,16 +50,16 @@ namespace UnityStandardAssets.Effects
                 m_Sphere = (GetComponent<Collider>() as SphereCollider);
 
             m_Sphere.radius = effectDistance*.5f;
-            m_Sphere.center = new Vector3(0, 0, effectDistance*.5f);
-            var directions = new Vector3[] {Vector3.up, -Vector3.up, Vector3.right, -Vector3.right};
-            var perpDirections = new Vector3[] {-Vector3.right, Vector3.right, Vector3.up, -Vector3.up};
+            m_Sphere.center = new UnityEngine.Vector3(0, 0, effectDistance * .5f);
+            var directions = new UnityEngine.Vector3[] { UnityEngine.Vector3.up, -UnityEngine.Vector3.up, UnityEngine.Vector3.right, -UnityEngine.Vector3.right};
+            var perpDirections = new UnityEngine.Vector3[] {-UnityEngine.Vector3.right, UnityEngine.Vector3.right, UnityEngine.Vector3.up, -UnityEngine.Vector3.up};
             Gizmos.color = new Color(0, 1, 0, 0.5f);
             for (int n = 0; n < 4; ++n)
             {
-                Vector3 origin = transform.position + transform.rotation*directions[n]*effectWidth*0.5f;
+                UnityEngine.Vector3 origin = transform.position + transform.rotation * directions[n] * effectWidth * 0.5f;
 
-                Vector3 direction =
-                    transform.TransformDirection(Quaternion.AngleAxis(effectAngle, perpDirections[n])*Vector3.forward);
+                UnityEngine.Vector3 direction =
+                    transform.TransformDirection(Quaternion.AngleAxis(effectAngle, perpDirections[n]) * UnityEngine.Vector3.forward);
 
                 Gizmos.DrawLine(origin, origin + direction*m_Sphere.radius*2);
             }

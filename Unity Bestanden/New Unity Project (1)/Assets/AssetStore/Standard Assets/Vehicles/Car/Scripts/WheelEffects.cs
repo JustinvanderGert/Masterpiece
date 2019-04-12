@@ -76,7 +76,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 yield return null;
             }
             m_SkidTrail.parent = transform;
-            m_SkidTrail.localPosition = -Vector3.up*m_WheelCollider.radius;
+            m_SkidTrail.localPosition = -UnityEngine.Vector3.up* m_WheelCollider.radius;
         }
 
 

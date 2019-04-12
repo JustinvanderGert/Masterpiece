@@ -1,15 +1,19 @@
 ﻿using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
+using UnityStandardAssets.Characters.FirstPerson;
 
 public class Boat : MonoBehaviour
 {
     public List<GameObject> Docks;
+    public GameObject Player;
+    Player PlayerScript;
+    Camera BoatCam;
     Rigidbody Rb;
 
-    public bool Driving = false;
-
     public Transform PlayerDrivingPos;
+
+    public bool Driving = false;
 
     public float RotSpeed;
     public float MovSpeed;
@@ -20,7 +24,11 @@ public class Boat : MonoBehaviour
     void Start()
     {
         //Sets all private variables.
+        Player = GameObject.FindGameObjectWithTag("Player");
+        PlayerScript = Player.GetComponent<Player>();
+        BoatCam = GetComponentInChildren<Camera>();
         Rb = GetComponent<Rigidbody>();
+
     }
 
     void FixedUpdate()
@@ -56,16 +64,44 @@ public class Boat : MonoBehaviour
         else { Rb.isKinematic = true; }
     }
 
+    public void EnterBoat(Camera PlayerCam)
+    {
+        //Sets everything to get on the boat.
+        Driving = true;
+        BoatCam.enabled = true;
+        PlayerCam.enabled = false;
+    }
+
+    public void ExitBoat(Camera PlayerCam)
+    {
+        //Resets everything to get off the boat.
+        GameObject ClosestDock = FindClosest(Docks);
+        if (ClosestDock != null)
+        {
+            Dock ClosestDockScript = ClosestDock.GetComponent<Dock>();
+
+            Rb.velocity = new UnityEngine.Vector3(0, 0, 0);
+            Player.transform.position = ClosestDockScript.PlayerEnterPos.transform.position;
+            //Player.transform.rotation = ClosestDockScript.PlayerEnterPos.transform.rotation;
+            transform.position = ClosestDockScript.BoatSpawnPos.transform.position;
+            transform.rotation = ClosestDockScript.BoatSpawnPos.transform.rotation;
+
+            Driving = false;
+            BoatCam.enabled = false;
+            PlayerCam.enabled = true;
+        }
+    }
+
     public GameObject FindClosest(List<GameObject> ListToCheck)
     {
         //Finds the closest Dock.
         GameObject Closest = null;
-        float MinDistance = Mathf.Infinity;
+        float MinDistance = MinDistanceToExit;
 
         foreach (GameObject ObjectToCheck in ListToCheck)
         {
             Dock DockScript = ObjectToCheck.GetComponent<Dock>();
-            float Distance = Vector3.Distance(transform.position, DockScript.PlayerEnterPos.transform.position);
+            float Distance = UnityEngine.Vector3.Distance(transform.position, DockScript.PlayerEnterPos.transform.position);
             if (MinDistance >= Distance)
             {
                 Closest = ObjectToCheck;

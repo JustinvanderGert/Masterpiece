@@ -15,7 +15,7 @@ namespace UnityStandardAssets.Water
         public float clipPlaneOffset = 0.07F;
 
 
-        Vector3 m_Oldpos;
+        UnityEngine.Vector3 m_Oldpos;
         Camera m_ReflectionCamera;
         Material m_SharedMaterial;
         Dictionary<Camera, bool> m_HelperCameras;
@@ -169,21 +169,21 @@ namespace UnityStandardAssets.Water
 
             Transform reflectiveSurface = transform; //waterHeight;
 
-            Vector3 eulerA = cam.transform.eulerAngles;
+            UnityEngine.Vector3 eulerA = cam.transform.eulerAngles;
 
-            reflectCamera.transform.eulerAngles = new Vector3(-eulerA.x, eulerA.y, eulerA.z);
+            reflectCamera.transform.eulerAngles = new UnityEngine.Vector3(-eulerA.x, eulerA.y, eulerA.z);
             reflectCamera.transform.position = cam.transform.position;
 
-            Vector3 pos = reflectiveSurface.transform.position;
+            UnityEngine.Vector3 pos = reflectiveSurface.transform.position;
             pos.y = reflectiveSurface.position.y;
-            Vector3 normal = reflectiveSurface.transform.up;
-            float d = -Vector3.Dot(normal, pos) - clipPlaneOffset;
+            UnityEngine.Vector3 normal = reflectiveSurface.transform.up;
+            float d = -UnityEngine.Vector3.Dot(normal, pos) - clipPlaneOffset;
             Vector4 reflectionPlane = new Vector4(normal.x, normal.y, normal.z, d);
 
             Matrix4x4 reflection = Matrix4x4.zero;
             reflection = CalculateReflectionMatrix(reflection, reflectionPlane);
             m_Oldpos = cam.transform.position;
-            Vector3 newpos = reflection.MultiplyPoint(m_Oldpos);
+            UnityEngine.Vector3 newpos = reflection.MultiplyPoint(m_Oldpos);
 
             reflectCamera.worldToCameraMatrix = cam.worldToCameraMatrix * reflection;
 
@@ -194,8 +194,8 @@ namespace UnityStandardAssets.Water
             reflectCamera.projectionMatrix = projection;
 
             reflectCamera.transform.position = newpos;
-            Vector3 euler = cam.transform.eulerAngles;
-            reflectCamera.transform.eulerAngles = new Vector3(-euler.x, euler.y, euler.z);
+            UnityEngine.Vector3 euler = cam.transform.eulerAngles;
+            reflectCamera.transform.eulerAngles = new UnityEngine.Vector3(-euler.x, euler.y, euler.z);
 
             reflectCamera.Render();
 
@@ -271,14 +271,14 @@ namespace UnityStandardAssets.Water
         }
 
 
-        Vector4 CameraSpacePlane(Camera cam, Vector3 pos, Vector3 normal, float sideSign)
+        Vector4 CameraSpacePlane(Camera cam, UnityEngine.Vector3 pos, UnityEngine.Vector3 normal, float sideSign)
         {
-            Vector3 offsetPos = pos + normal * clipPlaneOffset;
+            UnityEngine.Vector3 offsetPos = pos + normal * clipPlaneOffset;
             Matrix4x4 m = cam.worldToCameraMatrix;
-            Vector3 cpos = m.MultiplyPoint(offsetPos);
-            Vector3 cnormal = m.MultiplyVector(normal).normalized * sideSign;
+            UnityEngine.Vector3 cpos = m.MultiplyPoint(offsetPos);
+            UnityEngine.Vector3 cnormal = m.MultiplyVector(normal).normalized * sideSign;
 
-            return new Vector4(cnormal.x, cnormal.y, cnormal.z, -Vector3.Dot(cpos, cnormal));
+            return new Vector4(cnormal.x, cnormal.y, cnormal.z, -UnityEngine.Vector3.Dot(cpos, cnormal));
         }
     }
 }

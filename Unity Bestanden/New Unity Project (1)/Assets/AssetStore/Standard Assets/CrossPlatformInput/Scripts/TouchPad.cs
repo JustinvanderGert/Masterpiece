@@ -32,9 +32,9 @@ namespace UnityStandardAssets.CrossPlatformInput
 		public float Xsensitivity = 1f;
 		public float Ysensitivity = 1f;
 
-		Vector3 m_StartPos;
+        UnityEngine.Vector3 m_StartPos;
 		Vector2 m_PreviousDelta;
-		Vector3 m_JoytickOutput;
+        UnityEngine.Vector3 m_JoytickOutput;
 		bool m_UseX; // Toggle for using the x axis
 		bool m_UseY; // Toggle for using the Y axis
 		CrossPlatformInputManager.VirtualAxis m_HorizontalVirtualAxis; // Reference to the joystick in the cross platform input
@@ -48,7 +48,7 @@ namespace UnityStandardAssets.CrossPlatformInput
     private Vector3 m_Center;
     private Image m_Image;
 #else
-		Vector3 m_PreviousMouse;
+        UnityEngine.Vector3 m_PreviousMouse;
 #endif
 
 		void OnEnable()
@@ -83,7 +83,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 			}
 		}
 
-		void UpdateVirtualAxes(Vector3 value)
+		void UpdateVirtualAxes(UnityEngine.Vector3 value)
 		{
 			value = value.normalized;
 			if (m_UseX)
@@ -130,9 +130,9 @@ namespace UnityStandardAssets.CrossPlatformInput
 				Vector2 pointerDelta;
 				pointerDelta.x = Input.mousePosition.x - m_PreviousMouse.x;
 				pointerDelta.y = Input.mousePosition.y - m_PreviousMouse.y;
-				m_PreviousMouse = new Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
+                m_PreviousMouse = new UnityEngine.Vector3(Input.mousePosition.x, Input.mousePosition.y, 0f);
 #endif
-				UpdateVirtualAxes(new Vector3(pointerDelta.x, pointerDelta.y, 0));
+                UpdateVirtualAxes(new UnityEngine.Vector3(pointerDelta.x, pointerDelta.y, 0));
 			}
 		}
 
@@ -141,7 +141,7 @@ namespace UnityStandardAssets.CrossPlatformInput
 		{
 			m_Dragging = false;
 			m_Id = -1;
-			UpdateVirtualAxes(Vector3.zero);
+            UpdateVirtualAxes(UnityEngine.Vector3.zero);
 		}
 
 		void OnDisable()

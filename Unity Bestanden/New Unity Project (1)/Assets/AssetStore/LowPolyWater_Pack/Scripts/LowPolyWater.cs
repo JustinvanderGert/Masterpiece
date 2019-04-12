@@ -9,11 +9,11 @@ namespace LowPolyWater
         public float waveLength = 0.75f;
 
         //Position where the waves originate from
-        public Vector3 waveOriginPosition = new Vector3(0.0f, 0.0f, 0.0f);
+        public UnityEngine.Vector3 waveOriginPosition = new UnityEngine.Vector3(0.0f, 0.0f, 0.0f);
 
         MeshFilter meshFilter;
         Mesh mesh;
-        Vector3[] vertices;
+        UnityEngine.Vector3[] vertices;
 
         private void Awake()
         {
@@ -36,13 +36,13 @@ namespace LowPolyWater
             mesh = mf.sharedMesh;
 
             //Get the original vertices of the gameobject's mesh
-            Vector3[] originalVertices = mesh.vertices;
+            UnityEngine.Vector3[] originalVertices = mesh.vertices;
 
             //Get the list of triangle indices of the gameobject's mesh
             int[] triangles = mesh.triangles;
 
             //Create a vector array for new vertices 
-            Vector3[] vertices = new Vector3[triangles.Length];
+            UnityEngine.Vector3[] vertices = new UnityEngine.Vector3[triangles.Length];
             
             //Assign vertices to create triangles out of the mesh
             for (int i = 0; i < triangles.Length; i++)
@@ -74,13 +74,13 @@ namespace LowPolyWater
         {
             for (int i = 0; i < vertices.Length; i++)
             {
-                Vector3 v = vertices[i];
+                UnityEngine.Vector3 v = vertices[i];
 
                 //Initially set the wave height to 0
                 v.y = 0.0f;
 
                 //Get the distance between wave origin position and the current vertex
-                float distance = Vector3.Distance(v, waveOriginPosition);
+                float distance = UnityEngine.Vector3.Distance(v, waveOriginPosition);
                 distance = (distance % waveLength) / waveLength;
 
                 //Oscilate the wave height via sine to create a wave effect

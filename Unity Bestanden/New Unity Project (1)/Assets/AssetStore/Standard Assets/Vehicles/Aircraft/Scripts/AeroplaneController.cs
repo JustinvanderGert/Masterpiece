@@ -115,7 +115,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
                 var localFlatForward = transform.InverseTransformDirection(flatForward);
                 PitchAngle = Mathf.Atan2(localFlatForward.y, localFlatForward.z);
                 // calculate current roll angle
-                var flatRight = Vector3.Cross(Vector3.up, flatForward);
+                var flatRight = UnityEngine.Vector3.Cross(UnityEngine.Vector3.up, flatForward);
                 var localFlatRight = transform.InverseTransformDirection(flatRight);
                 RollAngle = Mathf.Atan2(localFlatRight.y, localFlatRight.x);
             }
@@ -185,13 +185,13 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             if (m_Rigidbody.velocity.magnitude > 0)
             {
                 // compare the direction we're pointing with the direction we're moving:
-                m_AeroFactor = Vector3.Dot(transform.forward, m_Rigidbody.velocity.normalized);
+                m_AeroFactor = UnityEngine.Vector3.Dot(transform.forward, m_Rigidbody.velocity.normalized);
                 // multipled by itself results in a desirable rolloff curve of the effect
                 m_AeroFactor *= m_AeroFactor;
                 // Finally we calculate a new velocity by bending the current velocity direction towards
                 // the the direction the plane is facing, by an amount based on this aeroFactor
-                var newVelocity = Vector3.Lerp(m_Rigidbody.velocity, transform.forward*ForwardSpeed,
-                                               m_AeroFactor*ForwardSpeed*m_AerodynamicEffect*Time.deltaTime);
+                var newVelocity = UnityEngine.Vector3.Lerp(m_Rigidbody.velocity, transform.forward * ForwardSpeed,
+                                               m_AeroFactor * ForwardSpeed * m_AerodynamicEffect * Time.deltaTime);
                 m_Rigidbody.velocity = newVelocity;
 
                 // also rotate the plane towards the direction of movement - this should be a very small effect, but means the plane ends up
@@ -207,11 +207,11 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         {
             // Now calculate forces acting on the aeroplane:
             // we accumulate forces into this variable:
-            var forces = Vector3.zero;
+            var forces = UnityEngine.Vector3.zero;
             // Add the engine power in the forward direction
             forces += EnginePower*transform.forward;
             // The direction that the lift force is applied is at right angles to the plane's velocity (usually, this is 'up'!)
-            var liftDirection = Vector3.Cross(m_Rigidbody.velocity, transform.right).normalized;
+            var liftDirection = UnityEngine.Vector3.Cross(m_Rigidbody.velocity, transform.right).normalized;
             // The amount of lift drops off as the plane increases speed - in reality this occurs as the pilot retracts the flaps
             // shortly after takeoff, giving the plane less drag, but less lift. Because we don't simulate flaps, this is
             // a simple way of doing it automatically:
@@ -227,7 +227,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         private void CalculateTorque()
         {
             // We accumulate torque forces into this variable:
-            var torque = Vector3.zero;
+            var torque = UnityEngine.Vector3.zero;
             // Add torque for the pitch based on the pitch input.
             torque += PitchInput*m_PitchEffect*transform.right;
             // Add torque for the yaw based on the yaw input.
@@ -247,7 +247,7 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
         {
             // Altitude calculations - we raycast downwards from the aeroplane
             // starting a safe distance below the plane to avoid colliding with any of the plane's own colliders
-            var ray = new Ray(transform.position - Vector3.up*10, -Vector3.up);
+            var ray = new Ray(transform.position - UnityEngine.Vector3.up*10, -UnityEngine.Vector3.up);
             RaycastHit hit;
             Altitude = Physics.Raycast(ray, out hit) ? hit.distance + 10 : transform.position.y;
         }

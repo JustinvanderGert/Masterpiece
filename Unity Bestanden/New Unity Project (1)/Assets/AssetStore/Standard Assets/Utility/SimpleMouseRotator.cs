@@ -15,7 +15,7 @@ namespace UnityStandardAssets.Utility
         // (Think: looking out the side window of a car, or a gun turret
         // on a moving spaceship with a limited angular range)
         // to have no constraints on an axis, set the rotationRange to 360 or greater.
-        public Vector2 rotationRange = new Vector3(70, 70);
+        public Vector2 rotationRange = new UnityEngine.Vector3(70, 70);
         public float rotationSpeed = 10;
         public float dampingTime = 0.2f;
         public bool autoZeroVerticalOnMobile = true;
@@ -23,9 +23,9 @@ namespace UnityStandardAssets.Utility
         public bool relative = true;
         
         
-        private Vector3 m_TargetAngles;
-        private Vector3 m_FollowAngles;
-        private Vector3 m_FollowVelocity;
+        private UnityEngine.Vector3 m_TargetAngles;
+        private UnityEngine.Vector3 m_FollowAngles;
+        private UnityEngine.Vector3 m_FollowVelocity;
         private Quaternion m_OriginalRotation;
 
 
@@ -104,7 +104,7 @@ namespace UnityStandardAssets.Utility
             }
 
             // smoothly interpolate current values to target angles
-            m_FollowAngles = Vector3.SmoothDamp(m_FollowAngles, m_TargetAngles, ref m_FollowVelocity, dampingTime);
+            m_FollowAngles = UnityEngine.Vector3.SmoothDamp(m_FollowAngles, m_TargetAngles, ref m_FollowVelocity, dampingTime);
 
             // update the actual gameobject's rotation
             transform.localRotation = m_OriginalRotation*Quaternion.Euler(-m_FollowAngles.x, m_FollowAngles.y, 0);

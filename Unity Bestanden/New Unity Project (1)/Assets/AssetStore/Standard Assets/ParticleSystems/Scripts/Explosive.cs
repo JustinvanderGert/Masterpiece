@@ -32,7 +32,7 @@ namespace UnityStandardAssets.Effects
                 {
                     // compare relative velocity to collision normal - so we don't explode from a fast but gentle glancing collision
                     float velocityAlongCollisionNormal =
-                        Vector3.Project(col.relativeVelocity, col.contacts[0].normal).magnitude;
+                        UnityEngine.Vector3.Project(col.relativeVelocity, col.contacts[0].normal).magnitude;
 
                     if (velocityAlongCollisionNormal > detonationImpactVelocity || m_Exploded)
                     {

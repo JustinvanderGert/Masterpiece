@@ -7,7 +7,7 @@ namespace UnityStandardAssets.Utility
 {
     public class ObjectResetter : MonoBehaviour
     {
-        private Vector3 originalPosition;
+        private UnityEngine.Vector3 originalPosition;
         private Quaternion originalRotation;
         private List<Transform> originalStructure;
 
@@ -47,8 +47,8 @@ namespace UnityStandardAssets.Utility
             transform.rotation = originalRotation;
             if (Rigidbody)
             {
-                Rigidbody.velocity = Vector3.zero;
-                Rigidbody.angularVelocity = Vector3.zero;
+                Rigidbody.velocity = UnityEngine.Vector3.zero;
+                Rigidbody.angularVelocity = UnityEngine.Vector3.zero;
             }
 
             SendMessage("Reset");

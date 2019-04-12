@@ -6,8 +6,8 @@ namespace UnityStandardAssets.Water
     public class MeshContainer
     {
         public Mesh mesh;
-        public Vector3[] vertices;
-        public Vector3[] normals;
+        public UnityEngine.Vector3[] vertices;
+        public UnityEngine.Vector3[] normals;
 
 
         public MeshContainer(Mesh m)

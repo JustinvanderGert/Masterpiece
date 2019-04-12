@@ -22,7 +22,7 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] private WheelCollider[] m_WheelColliders = new WheelCollider[4];
         [SerializeField] private GameObject[] m_WheelMeshes = new GameObject[4];
         [SerializeField] private WheelEffects[] m_WheelEffects = new WheelEffects[4];
-        [SerializeField] private Vector3 m_CentreOfMassOffset;
+        [SerializeField] private UnityEngine.Vector3 m_CentreOfMassOffset;
         [SerializeField] private float m_MaximumSteerAngle;
         [Range(0, 1)] [SerializeField] private float m_SteerHelper; // 0 is raw physics , 1 the car will grip in the direction it is facing
         [Range(0, 1)] [SerializeField] private float m_TractionControl; // 0 is no traction control, 1 is full interference
@@ -38,7 +38,7 @@ namespace UnityStandardAssets.Vehicles.Car
         [SerializeField] private float m_BrakeTorque;
 
         private Quaternion[] m_WheelMeshLocalRotations;
-        private Vector3 m_Prevpos, m_Pos;
+        private UnityEngine.Vector3 m_Prevpos, m_Pos;
         private float m_SteerAngle;
         private int m_GearNum;
         private float m_GearFactor;
@@ -131,7 +131,7 @@ namespace UnityStandardAssets.Vehicles.Car
             for (int i = 0; i < 4; i++)
             {
                 Quaternion quat;
-                Vector3 position;
+                UnityEngine.Vector3 position;
                 m_WheelColliders[i].GetWorldPose(out position, out quat);
                 m_WheelMeshes[i].transform.position = position;
                 m_WheelMeshes[i].transform.rotation = quat;
@@ -221,14 +221,14 @@ namespace UnityStandardAssets.Vehicles.Car
 
             for (int i = 0; i < 4; i++)
             {
-                if (CurrentSpeed > 5 && Vector3.Angle(transform.forward, m_Rigidbody.velocity) < 50f)
+                if (CurrentSpeed > 5 && UnityEngine.Vector3.Angle(transform.forward, m_Rigidbody.velocity) < 50f)
                 {
-                    m_WheelColliders[i].brakeTorque = m_BrakeTorque*footbrake;
+                    m_WheelColliders[i].brakeTorque = m_BrakeTorque * footbrake;
                 }
                 else if (footbrake > 0)
                 {
                     m_WheelColliders[i].brakeTorque = 0f;
-                    m_WheelColliders[i].motorTorque = -m_ReverseTorque*footbrake;
+                    m_WheelColliders[i].motorTorque = -m_ReverseTorque * footbrake;
                 }
             }
         }
@@ -240,7 +240,7 @@ namespace UnityStandardAssets.Vehicles.Car
             {
                 WheelHit wheelhit;
                 m_WheelColliders[i].GetGroundHit(out wheelhit);
-                if (wheelhit.normal == Vector3.zero)
+                if (wheelhit.normal == UnityEngine.Vector3.zero)
                     return; // wheels arent on the ground so dont realign the rigidbody velocity
             }
 
@@ -248,7 +248,7 @@ namespace UnityStandardAssets.Vehicles.Car
             if (Mathf.Abs(m_OldRotation - transform.eulerAngles.y) < 10f)
             {
                 var turnadjust = (transform.eulerAngles.y - m_OldRotation) * m_SteerHelper;
-                Quaternion velRotation = Quaternion.AngleAxis(turnadjust, Vector3.up);
+                Quaternion velRotation = Quaternion.AngleAxis(turnadjust, UnityEngine.Vector3.up);
                 m_Rigidbody.velocity = velRotation * m_Rigidbody.velocity;
             }
             m_OldRotation = transform.eulerAngles.y;

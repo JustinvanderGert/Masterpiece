@@ -20,7 +20,7 @@ namespace UnityStandardAssets.Effects
             for (int n = 0; n < numDebrisPieces*multiplier; ++n)
             {
                 var prefab = debrisPrefabs[Random.Range(0, debrisPrefabs.Length)];
-                Vector3 pos = transform.position + Random.insideUnitSphere*3*multiplier;
+                UnityEngine.Vector3 pos = transform.position + Random.insideUnitSphere*3* multiplier;
                 Quaternion rot = Random.rotation;
                 Instantiate(prefab, pos, rot);
             }
@@ -48,7 +48,7 @@ namespace UnityStandardAssets.Effects
             while (numFires > 0 && testR < r)
             {
                 RaycastHit fireHit;
-                Ray fireRay = new Ray(transform.position + Vector3.up, Random.onUnitSphere);
+                Ray fireRay = new Ray(transform.position + UnityEngine.Vector3.up, Random.onUnitSphere);
                 if (Physics.Raycast(fireRay, out fireHit, testR))
                 {
                     AddFire(null, fireHit.point, fireHit.normal);
@@ -59,7 +59,7 @@ namespace UnityStandardAssets.Effects
         }
 
 
-        private void AddFire(Transform t, Vector3 pos, Vector3 normal)
+        private void AddFire(Transform t, UnityEngine.Vector3 pos, UnityEngine.Vector3 normal)
         {
             pos += normal*0.5f;
             Transform fire = (Transform) Instantiate(firePrefab, pos, Quaternion.identity);

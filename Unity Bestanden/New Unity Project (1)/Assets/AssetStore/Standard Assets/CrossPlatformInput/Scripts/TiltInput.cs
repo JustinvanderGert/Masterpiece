@@ -56,16 +56,16 @@ namespace UnityStandardAssets.CrossPlatformInput
         private void Update()
         {
             float angle = 0;
-            if (Input.acceleration != Vector3.zero)
+            if (Input.acceleration != UnityEngine.Vector3.zero)
             {
                 switch (tiltAroundAxis)
                 {
                     case AxisOptions.ForwardAxis:
-                        angle = Mathf.Atan2(Input.acceleration.x, -Input.acceleration.y)*Mathf.Rad2Deg +
+                        angle = Mathf.Atan2(Input.acceleration.x, -Input.acceleration.y)* Mathf.Rad2Deg +
                                 centreAngleOffset;
                         break;
                     case AxisOptions.SidewaysAxis:
-                        angle = Mathf.Atan2(Input.acceleration.z, -Input.acceleration.y)*Mathf.Rad2Deg +
+                        angle = Mathf.Atan2(Input.acceleration.z, -Input.acceleration.y)* Mathf.Rad2Deg +
                                 centreAngleOffset;
                         break;
                 }

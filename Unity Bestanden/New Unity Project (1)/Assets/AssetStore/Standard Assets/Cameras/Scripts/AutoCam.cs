@@ -21,7 +21,7 @@ namespace UnityStandardAssets.Cameras
         private float m_LastFlatAngle; // The relative angle of the target and the rig from the previous frame.
         private float m_CurrentTurnAmount; // How much to turn the camera
         private float m_TurnSpeedVelocityChange; // The change in the turn speed velocity
-        private Vector3 m_RollUp = Vector3.up;// The roll of the camera around the z axis ( generally this will always just be up )
+        private UnityEngine.Vector3 m_RollUp = UnityEngine.Vector3.up;// The roll of the camera around the z axis ( generally this will always just be up )
 
 
         protected override void FollowTarget(float deltaTime)
@@ -45,11 +45,11 @@ namespace UnityStandardAssets.Cameras
                 {
                     // velocity is high enough, so we'll use the target's velocty
                     targetForward = targetRigidbody.velocity.normalized;
-                    targetUp = Vector3.up;
+                    targetUp = UnityEngine.Vector3.up;
                 }
                 else
                 {
-                    targetUp = Vector3.up;
+                    targetUp = UnityEngine.Vector3.up;
                 }
                 m_CurrentTurnAmount = Mathf.SmoothDamp(m_CurrentTurnAmount, 1, ref m_TurnSpeedVelocityChange, m_SmoothTurnTime);
             }
@@ -85,7 +85,7 @@ namespace UnityStandardAssets.Cameras
             }
 
             // camera position moves towards target position:
-            transform.position = Vector3.Lerp(transform.position, m_Target.position, deltaTime*m_MoveSpeed);
+            transform.position = UnityEngine.Vector3.Lerp(transform.position, m_Target.position, deltaTime* m_MoveSpeed);
 
             // camera's rotation is split into two parts, which can have independend speed settings:
             // rotating towards the target's forward direction (which encompasses its 'yaw' and 'pitch')
@@ -100,7 +100,7 @@ namespace UnityStandardAssets.Cameras
             var rollRotation = Quaternion.LookRotation(targetForward, m_RollUp);
 
             // and aligning with the target object's up direction (i.e. its 'roll')
-            m_RollUp = m_RollSpeed > 0 ? Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed*deltaTime) : Vector3.up;
+            m_RollUp = m_RollSpeed > 0 ? UnityEngine.Vector3.Slerp(m_RollUp, targetUp, m_RollSpeed * deltaTime) : UnityEngine.Vector3.up;
             transform.rotation = Quaternion.Lerp(transform.rotation, rollRotation, m_TurnSpeed*m_CurrentTurnAmount*deltaTime);
         }
     }

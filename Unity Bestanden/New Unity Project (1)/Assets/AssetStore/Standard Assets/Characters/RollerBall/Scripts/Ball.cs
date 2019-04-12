@@ -22,13 +22,13 @@ namespace UnityStandardAssets.Vehicles.Ball
         }
 
 
-        public void Move(Vector3 moveDirection, bool jump)
+        public void Move(UnityEngine.Vector3 moveDirection, bool jump)
         {
             // If using torque to rotate the ball...
             if (m_UseTorque)
             {
                 // ... add torque around the axis defined by the move direction.
-                m_Rigidbody.AddTorque(new Vector3(moveDirection.z, 0, -moveDirection.x)*m_MovePower);
+                m_Rigidbody.AddTorque(new UnityEngine.Vector3(moveDirection.z, 0, -moveDirection.x)* m_MovePower);
             }
             else
             {
@@ -37,10 +37,10 @@ namespace UnityStandardAssets.Vehicles.Ball
             }
 
             // If on the ground and jump is pressed...
-            if (Physics.Raycast(transform.position, -Vector3.up, k_GroundRayLength) && jump)
+            if (Physics.Raycast(transform.position, -UnityEngine.Vector3.up, k_GroundRayLength) && jump)
             {
                 // ... add force in upwards.
-                m_Rigidbody.AddForce(Vector3.up*m_JumpPower, ForceMode.Impulse);
+                m_Rigidbody.AddForce(UnityEngine.Vector3.up* m_JumpPower, ForceMode.Impulse);
             }
         }
     }

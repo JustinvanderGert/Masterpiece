@@ -7,7 +7,6 @@ public class Player : MonoBehaviour
 {
     RigidbodyFirstPersonController movementController;
     Camera PlayerCam;
-    Camera BoatCam;
     Boat boatScript;
     GameObject BoatObject;
 
@@ -19,13 +18,11 @@ public class Player : MonoBehaviour
         //Presets all private variables.
         BoatObject = GameObject.FindGameObjectWithTag("Boat");
         boatScript = BoatObject.GetComponent<Boat>();
-        BoatCam = BoatObject.GetComponentInChildren<Camera>();
-        BoatCam.enabled = false;
 
         PlayerCam = GetComponentInChildren<Camera>();
         movementController = GetComponent<RigidbodyFirstPersonController>();
     }
-    
+
     void Update()
     {
         if (boatScript.Driving)
@@ -34,36 +31,28 @@ public class Player : MonoBehaviour
             transform.position = boatScript.PlayerDrivingPos.position;
             transform.rotation = boatScript.PlayerDrivingPos.rotation;
         }
-        float distance = Vector3.Distance(transform.position, BoatObject.transform.position);
-        if(distance < RangeTillBoat)
+
+        if (Input.GetKeyDown(KeyCode.E))
         {
-            if (Input.GetKeyDown(KeyCode.E))
+            BoatAcces();
+        }
+    }
+
+    private void BoatAcces()
+    {
+        if (UnityEngine.Vector3.Distance(transform.position, BoatObject.transform.position) < RangeTillBoat)
+        {
+            if (!boatScript.Driving)
             {
-                if (!boatScript.Driving)
-                {
-                    //Sets everything to get on the boat.
-                    boatScript.Driving = true;
-                    BoatCam.enabled = true;
-                    PlayerCam.enabled = false;
-                    movementController.enabled = false;
-                }
-                else
-                {
-                    //Resets everything to get off the boat.
-                    ClosestDock = boatScript.FindClosest(boatScript.Docks);
-                    Dock ClosestDockScript = ClosestDock.GetComponent<Dock>();
-
-                    BoatObject.GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
-                    transform.position = ClosestDockScript.PlayerEnterPos.transform.position;
-                    transform.rotation = ClosestDockScript.PlayerEnterPos.transform.rotation;
-                    BoatObject.transform.position = ClosestDockScript.BoatSpawnPos.transform.position;
-                    BoatObject.transform.rotation = ClosestDockScript.BoatSpawnPos.transform.rotation;
-
-                    boatScript.Driving = false;
-                    BoatCam.enabled = false;
-                    PlayerCam.enabled = true;
-                    movementController.enabled = true;
-                }
+                //Sets everything to get on the boat.
+                movementController.enabled = false;
+                boatScript.EnterBoat(PlayerCam);
+            }
+            else
+            {
+                //Resets everything to get off the boat.
+                boatScript.ExitBoat(PlayerCam);
+                movementController.enabled = true;
             }
         }
     }
@@ -72,7 +61,7 @@ public class Player : MonoBehaviour
     {
         if(Other.gameObject.tag == "Respawn")
         {
-            GetComponent<Rigidbody>().velocity = new Vector3(0, 0, 0);
+            GetComponent<Rigidbody>().velocity = new UnityEngine.Vector3(0, 0, 0);
             transform.position = ClosestDock.GetComponent<Dock>().PlayerEnterPos.transform.position;
             transform.rotation = ClosestDock.GetComponent<Dock>().PlayerEnterPos.transform.rotation;
         }

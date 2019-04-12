@@ -48,13 +48,13 @@ namespace UnityStandardAssets.Vehicles.Aeroplane
             if (m_Target != null)
             {
                 // make the plane wander from the path, useful for making the AI seem more human, less robotic.
-                Vector3 targetPos = m_Target.position +
+                UnityEngine.Vector3 targetPos = m_Target.position +
                                     transform.right*
-                                    (Mathf.PerlinNoise(Time.time*m_LateralWanderSpeed, m_RandomPerlin)*2 - 1)*
+                                    (Mathf.PerlinNoise(Time.time * m_LateralWanderSpeed, m_RandomPerlin) *2 - 1)*
                                     m_LateralWanderDistance;
 
                 // adjust the yaw and pitch towards the target
-                Vector3 localTarget = transform.InverseTransformPoint(targetPos);
+                UnityEngine.Vector3 localTarget = transform.InverseTransformPoint(targetPos);
                 float targetAngleYaw = Mathf.Atan2(localTarget.x, localTarget.z);
                 float targetAnglePitch = -Mathf.Atan2(localTarget.y, localTarget.z);
 

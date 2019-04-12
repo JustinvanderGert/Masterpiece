@@ -68,7 +68,7 @@ namespace UnityStandardAssets.Vehicles.Car
             }
             else
             {
-                Vector3 fwd = transform.forward;
+                UnityEngine.Vector3 fwd = transform.forward;
                 if (m_Rigidbody.velocity.magnitude > m_CarController.MaxSpeed*0.1f)
                 {
                     fwd = m_Rigidbody.velocity;
@@ -84,7 +84,7 @@ namespace UnityStandardAssets.Vehicles.Car
                             // the car will brake according to the upcoming change in direction of the target. Useful for route-based AI, slowing for corners.
 
                             // check out the angle of our target compared to the current direction of the car
-                            float approachingCornerAngle = Vector3.Angle(m_Target.forward, fwd);
+                            float approachingCornerAngle = UnityEngine.Vector3.Angle(m_Target.forward, fwd);
 
                             // also consider the current amount we're turning, multiplied up and then compared in the same way as an upcoming corner angle
                             float spinningAngle = m_Rigidbody.angularVelocity.magnitude*m_CautiousAngularVelocityFactor;
@@ -104,7 +104,7 @@ namespace UnityStandardAssets.Vehicles.Car
                             // head for a stationary target and come to rest when it arrives there.
 
                             // check out the distance to target
-                            Vector3 delta = m_Target.position - transform.position;
+                            UnityEngine.Vector3 delta = m_Target.position - transform.position;
                             float distanceCautiousFactor = Mathf.InverseLerp(m_CautiousMaxDistance, 0, delta.magnitude);
 
                             // also consider the current amount we're turning, multiplied up and then compared in the same way as an upcoming corner angle
@@ -125,7 +125,7 @@ namespace UnityStandardAssets.Vehicles.Car
                 // Evasive action due to collision with other cars:
 
                 // our target position starts off as the 'real' target position
-                Vector3 offsetTargetPos = m_Target.position;
+                UnityEngine.Vector3 offsetTargetPos = m_Target.position;
 
                 // if are we currently taking evasive action to prevent being stuck against another car:
                 if (Time.time < m_AvoidOtherCarTime)
@@ -159,7 +159,7 @@ namespace UnityStandardAssets.Vehicles.Car
                          (Mathf.PerlinNoise(Time.time*m_AccelWanderSpeed, m_RandomPerlin)*m_AccelWanderAmount);
 
                 // calculate the local-relative position of the target, to steer towards
-                Vector3 localTarget = transform.InverseTransformPoint(offsetTargetPos);
+                UnityEngine.Vector3 localTarget = transform.InverseTransformPoint(offsetTargetPos);
 
                 // work out the local angle towards the target
                 float targetAngle = Mathf.Atan2(localTarget.x, localTarget.z)*Mathf.Rad2Deg;
@@ -191,7 +191,7 @@ namespace UnityStandardAssets.Vehicles.Car
                     m_AvoidOtherCarTime = Time.time + 1;
 
                     // but who's in front?...
-                    if (Vector3.Angle(transform.forward, otherAI.transform.position - transform.position) < 90)
+                    if (UnityEngine.Vector3.Angle(transform.forward, otherAI.transform.position - transform.position) < 90)
                     {
                         // the other ai is in front, so it is only good manners that we ought to brake...
                         m_AvoidOtherCarSlowdown = 0.5f;

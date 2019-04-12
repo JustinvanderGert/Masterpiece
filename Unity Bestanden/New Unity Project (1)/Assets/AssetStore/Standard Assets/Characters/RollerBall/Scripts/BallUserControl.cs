@@ -8,11 +8,11 @@ namespace UnityStandardAssets.Vehicles.Ball
     {
         private Ball ball; // Reference to the ball controller.
 
-        private Vector3 move;
+        private UnityEngine.Vector3 move;
         // the world-relative desired move direction, calculated from the camForward and user input.
 
         private Transform cam; // A reference to the main camera in the scenes transform
-        private Vector3 camForward; // The current forward direction of the camera
+        private UnityEngine.Vector3 camForward; // The current forward direction of the camera
         private bool jump; // whether the jump button is currently pressed
 
 
@@ -48,13 +48,13 @@ namespace UnityStandardAssets.Vehicles.Ball
             if (cam != null)
             {
                 // calculate camera relative direction to move:
-                camForward = Vector3.Scale(cam.forward, new Vector3(1, 0, 1)).normalized;
+                camForward = UnityEngine.Vector3.Scale(cam.forward, new UnityEngine.Vector3(1, 0, 1)).normalized;
                 move = (v*camForward + h*cam.right).normalized;
             }
             else
             {
                 // we use world-relative directions in the case of no main camera
-                move = (v*Vector3.forward + h*Vector3.right).normalized;
+                move = (v * UnityEngine.Vector3.forward + h* UnityEngine.Vector3.right).normalized;
             }
         }
 
