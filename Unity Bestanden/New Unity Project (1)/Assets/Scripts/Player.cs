@@ -51,7 +51,7 @@ public class Player : MonoBehaviour
             else
             {
                 //Resets everything to get off the boat.
-                boatScript.ExitBoat(PlayerCam);
+                ClosestDock = boatScript.ExitBoat(PlayerCam);
                 movementController.enabled = true;
             }
         }

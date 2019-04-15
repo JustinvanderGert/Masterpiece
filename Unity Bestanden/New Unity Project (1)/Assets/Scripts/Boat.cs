@@ -72,7 +72,7 @@ public class Boat : MonoBehaviour
         PlayerCam.enabled = false;
     }
 
-    public void ExitBoat(Camera PlayerCam)
+    public GameObject ExitBoat(Camera PlayerCam)
     {
         //Resets everything to get off the boat.
         GameObject ClosestDock = FindClosest(Docks);
@@ -89,7 +89,11 @@ public class Boat : MonoBehaviour
             Driving = false;
             BoatCam.enabled = false;
             PlayerCam.enabled = true;
+            return ClosestDock;
+
         }
+        else
+            return null;
     }
 
     public GameObject FindClosest(List<GameObject> ListToCheck)
