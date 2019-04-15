@@ -9,6 +9,9 @@ public class TrashBag : MonoBehaviour
     Player PlayerScript;
     NavMeshAgent Agent;
 
+    public bool CoastClear;
+    public Transform HeadingBush;
+
 
     void Start()
     {
@@ -38,6 +41,20 @@ public class TrashBag : MonoBehaviour
     public void SawPlayer()
     {
         Debug.Log("Did Hit");
-        Agent.destination = gameManager.FindClosest(transform.position);
+        HeadingBush = gameManager.FindClosest(transform.position);
+        HeadingBush.gameObject.GetComponent<HidingBush>().IncomingTrashBag = gameObject;
+        Agent.destination = HeadingBush.position;
+        CoastClear = false;
+
+        gameObject.GetComponent<BoxCollider>().enabled = false;
+    }
+
+    public void DoneHiding()
+    {
+        CoastClear = true;
+        HeadingBush.gameObject.GetComponent<HidingBush>().IncomingTrashBag = null;
+        Debug.Log("Get out of bush");
+
+        gameObject.GetComponent<BoxCollider>().enabled = true;
     }
 }
