@@ -6,6 +6,8 @@ TagManager:
   tags:
   - Boat
   - TrashBag
+  - Smurrie
+  - Trash
   layers:
   - Default
   - TransparentFX
