@@ -37,11 +37,6 @@ public class MovControls : MonoBehaviour
         moveVertical = Input.GetAxisRaw("Vertical");
         movement = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized;
 
-        //if (Input.GetAxisRaw("Horizontal") >= 1 && Input.GetAxisRaw("Vertical") >= 1)
-        //{
-        //    movement = new Vector3(Input.GetAxisRaw("Horizontal") / 2, 0, Input.GetAxisRaw("Vertical") / 2);
-        //}
-
         transform.Translate(movement * MoveSpeed * Time.deltaTime, Space.World);
     }
 }
