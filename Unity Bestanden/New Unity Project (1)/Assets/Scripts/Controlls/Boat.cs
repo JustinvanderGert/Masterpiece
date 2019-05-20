@@ -48,7 +48,7 @@ public class Boat : MonoBehaviour
 
             if (Input.GetKey(KeyCode.W))
             {
-                Rb.velocity = transform.forward * (Input.GetAxis("Vertical") * MovSpeed * Time.deltaTime);
+                Rb.velocity = -transform.right * (Input.GetAxis("Vertical") * MovSpeed * Time.deltaTime);
             }
             else if (Input.GetKey(KeyCode.S))
             {
@@ -76,24 +76,21 @@ public class Boat : MonoBehaviour
     {
         //Resets everything to get off the boat.
         GameObject ClosestDock = FindClosest(Docks);
-        if (ClosestDock != null)
-        {
-            Dock ClosestDockScript = ClosestDock.GetComponent<Dock>();
-
-            Rb.velocity = new UnityEngine.Vector3(0, 0, 0);
-            Player.transform.position = ClosestDockScript.PlayerEnterPos.transform.position;
-            //Player.transform.rotation = ClosestDockScript.PlayerEnterPos.transform.rotation;
-            transform.position = ClosestDockScript.BoatSpawnPos.transform.position;
-            transform.rotation = ClosestDockScript.BoatSpawnPos.transform.rotation;
-
-            Driving = false;
-            BoatCam.enabled = false;
-            PlayerCam.enabled = true;
-            return ClosestDock;
-
-        }
-        else
+        if (ClosestDock == null)
             return null;
+
+        Dock ClosestDockScript = ClosestDock.GetComponent<Dock>();
+
+        Rb.velocity = new UnityEngine.Vector3(0, 0, 0);
+        Player.transform.position = ClosestDockScript.PlayerEnterPos.transform.position;
+        //Player.transform.rotation = ClosestDockScript.PlayerEnterPos.transform.rotation;
+        transform.position = ClosestDockScript.BoatSpawnPos.transform.position;
+        transform.rotation = ClosestDockScript.BoatSpawnPos.transform.rotation;
+
+        Driving = false;
+        BoatCam.enabled = false;
+        PlayerCam.enabled = true;
+        return ClosestDock;
     }
 
     public GameObject FindClosest(List<GameObject> ListToCheck)

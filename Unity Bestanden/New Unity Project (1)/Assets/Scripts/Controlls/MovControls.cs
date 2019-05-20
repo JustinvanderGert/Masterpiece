@@ -4,6 +4,8 @@ using UnityEngine;
 
 public class MovControls : MonoBehaviour
 {
+    public Camera OverheadCam;
+    
     public float MoveSpeed;
 
     float moveHorizontal;
@@ -17,26 +19,29 @@ public class MovControls : MonoBehaviour
         movement = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized;
     }
 
-    void Update()
+    void FixedUpdate()
     {
-        if (Input.GetKey(KeyCode.W) || Input.GetKey(KeyCode.S))
+        if (Input.GetKey(KeyCode.W))
         {
-            Movement();
-        }
-        if (Input.GetKey(KeyCode.A) || Input.GetKey(KeyCode.D))
-        {
-            Movement();
+            transform.Translate(Vector3.forward * MoveSpeed * Time.deltaTime, Space.Self);
         }
 
-        transform.rotation = Quaternion.Slerp(transform.rotation, Quaternion.LookRotation(movement.normalized), 0.2F);
-    }
+        //Get the Screen positions of the object
+        Vector2 positionOnScreen = OverheadCam.WorldToViewportPoint(transform.position);
 
-    void Movement()
-    {
-        moveHorizontal = Input.GetAxisRaw("Horizontal");
-        moveVertical = Input.GetAxisRaw("Vertical");
-        movement = new Vector3(moveHorizontal, 0.0f, moveVertical).normalized;
+        //Get the Screen position of the mouse
+        Vector2 mouseOnScreen = (Vector2)OverheadCam.ScreenToViewportPoint(Input.mousePosition);
 
-        transform.Translate(movement * MoveSpeed * Time.deltaTime, Space.World);
+        //Get the angle between the points
+        float angle = AngleBetweenTwoPoints(positionOnScreen, mouseOnScreen);
+
+        //Ta Daaa
+        transform.rotation = Quaternion.Euler(new Vector3(0f, -angle, 0));
+
+
+        float AngleBetweenTwoPoints(Vector3 a, Vector3 b)
+        {
+            return Mathf.Atan2(a.y - b.y, a.x - b.x) * Mathf.Rad2Deg;
+        }
     }
 }
